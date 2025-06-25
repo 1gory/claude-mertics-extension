@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Claude Metrics",
+  "version": "1.0.0",
+  "description": "Track your time spent on Claude.ai with beautiful analytics",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://claude.ai/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://claude.ai/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.svg"
+  },
+  "icons": {
+    "16": "icon.svg",
+    "48": "icon.svg",
+    "128": "icon.svg"
+  },
+  "author": "Igor Pershin",
+  "homepage_url": "https://github.com/1gory/claude-metrics-extension"
+}

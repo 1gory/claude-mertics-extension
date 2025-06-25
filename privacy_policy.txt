@@ -1,0 +1,31 @@
+PRIVACY POLICY FOR CLAUDE METRICS
+
+Last updated: [Current Date]
+
+Claude Metrics is committed to protecting your privacy. This privacy policy explains how our Chrome extension handles your information.
+
+INFORMATION WE COLLECT
+Claude Metrics only collects and stores data locally on your device:
+- Time spent on claude.ai website
+- Session timestamps and durations
+- Usage statistics for chart display
+
+DATA STORAGE
+All data is stored locally in your browser using Chrome's storage API. No data is transmitted to external servers or third parties.
+
+DATA USAGE
+The collected data is used solely to:
+- Display your usage statistics
+- Generate activity charts
+- Track session history
+
+DATA SHARING
+We do not share, sell, or transmit any of your data to third parties. All information remains on your local device.
+
+DATA DELETION
+You can delete all stored data at any time using the "Reset All Data" button in the extension popup.
+
+CONTACT
+If you have questions about this privacy policy, please contact [your email].
+
+This policy may be updated from time to time. Continued use of the extension constitutes acceptance of any changes.

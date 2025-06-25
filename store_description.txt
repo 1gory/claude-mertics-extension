@@ -1,0 +1,33 @@
+TITLE:
+Claude Metrics - Time Tracker
+
+DESCRIPTION:
+Track your productivity and time spent on Claude.ai with beautiful, privacy-focused analytics.
+
+🎯 FEATURES
+- Real-time tracking of time spent on Claude.ai
+- Beautiful daily and weekly activity charts
+- Session history and statistics
+- Clean, Claude-inspired interface
+- Complete privacy - all data stays local
+
+📊 ANALYTICS
+- Today's session time
+- Total usage statistics
+- 7-day activity visualization
+- Session count tracking
+
+🔒 PRIVACY FIRST
+- No data collection or tracking
+- All information stored locally
+- No external servers or APIs
+- Open source and transparent
+
+⚡ LIGHTWEIGHT
+- Minimal resource usage
+- Fast and responsive interface
+- Works seamlessly with Claude.ai
+
+Perfect for users who want to monitor their AI usage, track productivity, or simply understand their Claude.ai habits better.
+
+Note: This is an unofficial extension and is not affiliated with Anthropic or Claude.ai.
