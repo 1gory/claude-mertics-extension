@@ -1,25 +1,51 @@
+// Ждем пока Chrome APIs станут доступны
+function waitForChromeAPI() {
+  return new Promise((resolve) => {
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      resolve();
+    } else {
+      setTimeout(() => waitForChromeAPI().then(resolve), 100);
+    }
+  });
+}
+
 let startTime = Date.now();
 let isActive = true;
 
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
+// Инициализация после загрузки API
+waitForChromeAPI().then(() => {
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (isActive) {
+        saveTimeSpent();
+        isActive = false;
+      }
+    } else {
+      startTime = Date.now();
+      isActive = true;
+    }
+  });
+
+  window.addEventListener('beforeunload', () => {
     if (isActive) {
       saveTimeSpent();
-      isActive = false;
     }
-  } else {
-    startTime = Date.now();
-    isActive = true;
-  }
-});
+  });
 
-window.addEventListener('beforeunload', () => {
-  if (isActive) {
-    saveTimeSpent();
-  }
+  setInterval(() => {
+    if (isActive) {
+      saveTimeSpent();
+      startTime = Date.now();
+    }
+  }, 30000);
 });
 
 function saveTimeSpent() {
+  if (!chrome.storage || !chrome.storage.local) {
+    console.warn('Chrome storage API not available');
+    return;
+  }
+
   const timeSpent = Date.now() - startTime;
 
   chrome.storage.local.get(['totalTime', 'sessions'], (result) => {
@@ -40,10 +66,3 @@ function saveTimeSpent() {
     });
   });
 }
-
-setInterval(() => {
-  if (isActive) {
-    saveTimeSpent();
-    startTime = Date.now();
-  }
-}, 30000);
