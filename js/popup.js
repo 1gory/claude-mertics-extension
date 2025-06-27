@@ -1,15 +1,23 @@
 function formatTime(milliseconds) {
-  const minutes = Math.floor(milliseconds / 60000);
-  const hours = Math.floor(minutes / 60);
+  const totalSeconds = Math.floor(milliseconds / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
 
   if (hours > 0) {
-    const remainingMinutes = minutes % 60;
-    if (remainingMinutes === 0) {
+    if (minutes === 0 && seconds === 0) {
       return `${hours}h`;
+    } else if (seconds === 0) {
+      return `${hours}h ${minutes}m`;
     }
-    return `${hours}h ${remainingMinutes}m`;
+    return `${hours}h ${minutes}m ${seconds}s`;
+  } else if (minutes > 0) {
+    if (seconds === 0) {
+      return `${minutes}m`;
+    }
+    return `${minutes}m ${seconds}s`;
   }
-  return `${minutes}m`;
+  return `${seconds}s`;
 }
 
 function updateStats() {
@@ -71,3 +79,6 @@ document.getElementById('resetBtn').addEventListener('click', () => {
 });
 
 updateStats();
+
+// Обновляем статистику каждые 5 секунд для live обновления
+setInterval(updateStats, 5000);

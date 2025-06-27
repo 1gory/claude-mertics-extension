@@ -124,3 +124,17 @@ h1 {
     font-weight: 500;
     color: #1F2937;
 }
+
+.chart .bar {
+    background: linear-gradient(to top, #FF6B35, #E8501A);
+    border-radius: 2px;
+    min-height: 3px;
+    flex: 1;
+    margin: 0 1px;
+    transition: all 0.2s ease;
+}
+
+.chart .bar:hover {
+    background: linear-gradient(to top, #E8501A, #D44719);
+    transform: scaleY(1.1);
+}

@@ -1,52 +1,38 @@
-// Ждем пока Chrome APIs станут доступны
-function waitForChromeAPI() {
-  return new Promise((resolve) => {
-    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-      resolve();
-    } else {
-      setTimeout(() => waitForChromeAPI().then(resolve), 100);
-    }
-  });
-}
-
-let startTime = Date.now();
+let sessionStartTime = Date.now();
 let isActive = true;
 
-// Инициализация после загрузки API
-waitForChromeAPI().then(() => {
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      if (isActive) {
-        saveTimeSpent();
-        isActive = false;
-      }
-    } else {
-      startTime = Date.now();
-      isActive = true;
-    }
-  });
+// Сохраняем время начала текущей сессии
+chrome.storage.local.set({
+  currentSessionStart: sessionStartTime,
+  isCurrentlyActive: true
+});
 
-  window.addEventListener('beforeunload', () => {
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
     if (isActive) {
       saveTimeSpent();
+      isActive = false;
+      chrome.storage.local.set({ isCurrentlyActive: false });
     }
-  });
+  } else {
+    sessionStartTime = Date.now();
+    isActive = true;
+    chrome.storage.local.set({
+      currentSessionStart: sessionStartTime,
+      isCurrentlyActive: true
+    });
+  }
+});
 
-  setInterval(() => {
-    if (isActive) {
-      saveTimeSpent();
-      startTime = Date.now();
-    }
-  }, 30000);
+window.addEventListener('beforeunload', () => {
+  if (isActive) {
+    saveTimeSpent();
+    chrome.storage.local.set({ isCurrentlyActive: false });
+  }
 });
 
 function saveTimeSpent() {
-  if (!chrome.storage || !chrome.storage.local) {
-    console.warn('Chrome storage API not available');
-    return;
-  }
-
-  const timeSpent = Date.now() - startTime;
+  const timeSpent = Date.now() - sessionStartTime;
 
   chrome.storage.local.get(['totalTime', 'sessions'], (result) => {
     const totalTime = (result.totalTime || 0) + timeSpent;
@@ -66,3 +52,11 @@ function saveTimeSpent() {
     });
   });
 }
+
+// Сохраняем каждые 10 секунд
+setInterval(() => {
+  if (isActive) {
+    saveTimeSpent();
+    sessionStartTime = Date.now();
+  }
+}, 10000);
