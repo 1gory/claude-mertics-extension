@@ -1,10 +1,9 @@
 {
   "manifest_version": 3,
   "name": "Claude Metrics",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Track your time spent on Claude.ai with beautiful analytics",
   "permissions": [
-    "activeTab",
     "storage"
   ],
   "host_permissions": [
