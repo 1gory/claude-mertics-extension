@@ -1,5 +1,9 @@
 # Claude Metrics - Chrome Extension
 
+> ⚠️ **DEPRECATED — больше не поддерживается.**
+> Проект устарел и не развивается. Код оставлен в архивных целях.
+> Использовать в продакшене не рекомендуется.
+
 A beautiful, privacy-focused time tracker for Claude.ai users.
 
 ## Features
